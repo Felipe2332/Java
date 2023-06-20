@@ -52,8 +52,8 @@ public class ListaImoveis {
     
     for (int i = 0; i < tamanhoMaximo; i++) {
         if (listaDeImoveis[i].getCodigo() == codigo) {
-            if (listaDeImoveis[i].isAlugado()) {
-                throw new TamanhoMaxExc("Imovel ja alugado");
+            if (listaDeImoveis[i].isAlugado() || listaDeImoveis[i].isVendido()) {
+                throw new TamanhoMaxExc("Imovel ja alugado ou vendido");
             }
             
             listaDeImoveis[i].setCorretor(corretor);
@@ -100,27 +100,36 @@ public class ListaImoveis {
     
     void listarImoveis(String titulo,boolean apenasDisponiveis,boolean residenciais)
     {
+        boolean algumDisponivel = false;
         System.out.println(titulo+"\n");
         for(int i = 0;i<tamanhoMaximo;i++)
         {
-            if(apenasDisponiveis && !listaDeImoveis[i].isAlugado())
+            if(apenasDisponiveis && listaDeImoveis[i].isAlugado() || listaDeImoveis[i].isVendido())
+            {
+                continue;
+                
+            }
+            
+            if(residenciais && listaDeImoveis[i] instanceof ImoveisResidenciais)
             {
                 continue;
             }
             
-            if(residenciais && (listaDeImoveis[i] instanceof ImoveisResidenciais))
-            {
-                continue;
-            }
+            
             
             System.out.println("Codigo: " + listaDeImoveis[i].getCodigo());
             System.out.println("CEP: " + listaDeImoveis[i].getCep());
             System.out.println("Endereco: " + listaDeImoveis[i].getEndereco());
             System.out.println("Nome do proprietario: " + listaDeImoveis[i].getNomeProprietario());
             System.out.println("\n");
+            algumDisponivel = true;
+            
             
         }
-        
+        if(!algumDisponivel)
+        {
+            System.out.println("Todos os imoveis alugados ou vendidos");
+        }
         
     }
         

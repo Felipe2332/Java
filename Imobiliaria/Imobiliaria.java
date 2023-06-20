@@ -35,11 +35,17 @@ public class Imobiliaria {
            //Alugar imovel
            lista1.alugarImovel(14, "Geraldão");
            
+           
            //Vender imovel
            lista1.venderImovel(18, "Vendedor");
+           lista1.venderImovel(22, "Vendedor");
+           
+           lista1.alugarImovel(22, "Geraldão");
+           
+           
            
            //Listar
-           lista1.listarImoveis("Eduardo", true, true);
+           lista1.listarImoveis("Eduardo", true, false);
         }
         catch(TamanhoMaxExc e)
         {
